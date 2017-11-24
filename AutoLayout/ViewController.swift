@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension UIColor {
+    static var mainPink = UIColor(red: 232/255, green: 68/255, blue: 133/255, alpha: 1)
+}
+
 class ViewController: UIViewController {
     
     let bearImageView : UIImageView = {
@@ -35,14 +39,70 @@ class ViewController: UIViewController {
         return textView
     }()
     
+    private let previusButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("PREV", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.setTitleColor(.gray, for: .normal)
+        return button
+    }()
+    
+    private let nextButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("NEXT", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        
+        button.setTitleColor(.mainPink, for: .normal)
+        return button
+    }()
+    
+    private let pageControl : UIPageControl = {
+        let pc = UIPageControl()
+        pc.currentPage = 0
+        pc.numberOfPages = 4
+        pc.currentPageIndicatorTintColor = .mainPink
+        pc.pageIndicatorTintColor = .gray
+        return pc
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 //        view.addSubview(bearImageView)
         view.addSubview(decriptionTextView)
         
+        setupBottomControls()
+        
         setupLayout()
         
+    }
+    
+    fileprivate func setupBottomControls() {
+//        view.addSubview(previusButton)
+//        previusButton.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+        
+//        let yellowView = UIView()
+//        yellowView.backgroundColor = .yellow
+        
+//        let greenView = UIView()
+//        greenView.backgroundColor = .green
+        
+//        let blueView = UIView()
+//        blueView.backgroundColor = .blue
+        
+        let bottomControlsStackView = UIStackView(arrangedSubviews: [previusButton,pageControl ,nextButton])
+        bottomControlsStackView.translatesAutoresizingMaskIntoConstraints = false
+        bottomControlsStackView.distribution = .fillEqually
+        view.addSubview(bottomControlsStackView)
+        
+        NSLayoutConstraint.activate([
+//                previusButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                bottomControlsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                bottomControlsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                bottomControlsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                bottomControlsStackView.heightAnchor.constraint(equalToConstant: 50)
+            ])
     }
     
     private func setupLayout() {
