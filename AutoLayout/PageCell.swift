@@ -10,14 +10,31 @@ import UIKit
 
 class PageCell: UICollectionViewCell {
     
-    let bearImageView : UIImageView = {
+    var page : Page? {
+        didSet{
+//            print(page?.imageName)
+            
+            guard let unwrappedPage = page else {return}
+            
+            bearImageView.image = UIImage(named: unwrappedPage.imageName)
+            
+            let attributedText = NSMutableAttributedString(string: unwrappedPage.heagerText, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18)])
+            
+            attributedText.append(NSAttributedString(string: "\n\n\n\(unwrappedPage.bodyText)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : UIColor.gray]))
+            
+            decriptionTextView.attributedText = attributedText
+            decriptionTextView.textAlignment = .center
+        }
+    }
+    
+    private let bearImageView : UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "bear_first"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let decriptionTextView : UITextView = {
+    private let decriptionTextView : UITextView = {
         let textView = UITextView()
         //        textView.text = "Join us today in our fun and games!"
         //        textView.font = UIFont.boldSystemFont(ofSize: 18)
