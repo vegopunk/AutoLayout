@@ -9,6 +9,9 @@
 import UIKit
 
 
+extension UIColor {
+    static var mainPink = UIColor(red: 232/255, green: 68/255, blue: 133/255, alpha: 1)
+}
 
 class SwipingController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     
@@ -17,9 +20,6 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         Page(imageName: "heart_second", heagerText: "Subscribe and get coupons on our daily events!", bodyText: "Get notified of the saving imediately when we anounce them on our website. Make sure to also give us any feedback you have."),
         Page(imageName: "leaf_third", heagerText: "VIP members special services.", bodyText: "")
     ]
-    
-//    let imageNames = ["bear_first","heart_second","leaf_third"]
-//    let headerStrings = ["Join use today in our fun and games!" , "Subscribe and get coupons on our daily events!" , "VIP members special services"]
     
     private let previusButton : UIButton = {
         let button = UIButton(type: .system)
@@ -56,7 +56,7 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
-    private lazy var pageControl : UIPageControl = {
+    lazy var pageControl : UIPageControl = {
         let pc = UIPageControl()
         pc.currentPage = 0
         pc.numberOfPages = 4
@@ -99,32 +99,5 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
             ])
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pages.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! PageCell
-//        cell.backgroundColor = indexPath.item % 2 ==  0 ? .red : .green
-//        let imageName = pages[indexPath.item]
-//        cell.bearImageView.image = UIImage(named: imageName)
-//        cell.decriptionTextView.text = pages[indexPath.item]
-        
-        let page = pages[indexPath.item]
-        cell.page = page
-//        cell.bearImageView.image = UIImage(named: page.imageName)
-//        cell.decriptionTextView.text = page.heagerText
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: view.frame.width , height: view.frame.height)
-    }
     
 }
